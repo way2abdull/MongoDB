@@ -23,32 +23,20 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.follows = void 0;
+exports.likes = void 0;
 const mongoose_1 = __importStar(require("mongoose"));
 const Schema = mongoose_1.default.Schema;
 const ObjectId = Schema.Types.ObjectId;
-const follow = new Schema({
-    sender_id: {
-        type: ObjectId,
-        ref: 'User'
+[];
+const like = new mongoose_1.default.Schema({
+    post_id: {
+        type: mongoose_1.default.Schema.Types.ObjectId,
+        ref: 'Posts'
     },
-    receiver_id: {
-        type: ObjectId,
-        ref: 'User'
+    user_id: {
+        type: mongoose_1.default.Schema.Types.ObjectId,
+        ref: 'Users'
     },
-    createdAt: {
-        type: Date,
-        default: Date.now,
-    },
-    updatedAt: {
-        type: Date,
-        default: Date.now,
-    },
-    status: {
-        type: String,
-        enum: ['accept', 'reject', 'pending'],
-        required: true
-    }
 });
-exports.follows = (0, mongoose_1.model)('Follower', follow);
-//# sourceMappingURL=follow_manage.js.map
+exports.likes = (0, mongoose_1.model)('Like', like);
+//# sourceMappingURL=likes.js.map

@@ -1,7 +1,6 @@
 import { Schema, model } from 'mongoose';
 
 interface Session {
-    _id: number;
     user_id: number;
     device_id: number;
     device_type: string;
@@ -12,10 +11,7 @@ interface Session {
   }
 
 const SessionSchema = new Schema<Session>({
-    _id: {
-        type: Number,
-        required: true
-    },
+  
   user_id: {
     type: Number,
     ref: 'User',
@@ -47,5 +43,4 @@ device_type: {
 },
 });
 
-const sessions = model<Session>('Session', SessionSchema);
-export default sessions;
+export const sessions = model<Session>('Session', SessionSchema);

@@ -6,7 +6,6 @@ const ObjectId = Schema.Types.ObjectId;
 
 
 interface User extends Document {
-    _id: number;
     username: string;
     first_name: string;
     last_name: string;
@@ -55,11 +54,11 @@ const UserSchema = new Schema<User>({
     },
     follower_count: [{
         type: ObjectId,
-        ref: 'User'
+        // ref: 'User'
     }],
     following_count: [{
         type: ObjectId,
-        ref: 'User'
+        ref: 'follower'
     }],
     post_count: [{
         type: ObjectId,
@@ -67,5 +66,5 @@ const UserSchema = new Schema<User>({
     }]
 });
 
-const users = mongoose.model('User', UserSchema);
-module.exports = users;
+export const Users = mongoose.model('User', UserSchema);
+

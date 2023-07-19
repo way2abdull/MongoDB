@@ -23,6 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Posts = void 0;
 // import mongoose from "mongoose";
 const mongoose_1 = __importStar(require("mongoose"));
 const postSchema = new mongoose_1.default.Schema({
@@ -52,6 +53,5 @@ const postSchema = new mongoose_1.default.Schema({
         type: Date
     }
 });
-const posts = (0, mongoose_1.model)('Post', postSchema);
-exports.default = posts;
+exports.Posts = (0, mongoose_1.model)('Post', postSchema);
 //# sourceMappingURL=post.js.map

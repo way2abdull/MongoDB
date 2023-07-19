@@ -1,7 +1,6 @@
 import express from "express";
 import * as dotenv from 'dotenv';
 
-
 import { connectToDatabase } from "./db/db_connection";
 
 

@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.sessions = void 0;
 const mongoose_1 = require("mongoose");
 const SessionSchema = new mongoose_1.Schema({
     _id: {
@@ -36,6 +37,5 @@ const SessionSchema = new mongoose_1.Schema({
         required: true
     },
 });
-const sessions = (0, mongoose_1.model)('Session', SessionSchema);
-exports.default = sessions;
+exports.sessions = (0, mongoose_1.model)('Session', SessionSchema);
 //# sourceMappingURL=session.js.map

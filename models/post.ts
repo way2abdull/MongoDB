@@ -1,5 +1,5 @@
 // import mongoose from "mongoose";
-import mongoose, { Schema, model } from 'mongoose';
+import mongoose, { model } from 'mongoose';
 
 interface Post {
     post_id: number;
@@ -12,33 +12,28 @@ interface Post {
 
 const postSchema = new mongoose.Schema({
 
-    post_id:{
-        type:Number
-    },
     user_id:{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User' 
+        ref: 'User',
+        required: true 
     },
     caption:{
-        type:String
+        type:String,
+        required: true
     },
     media_url:{
-        type:String
+        type:String,
+        required: true
     },
     
     likes_count:{
-        type:Number
+        type:Number,
+        required: true
     },
     comment_count:{
-        type:Number
-    },
-    created_at:{
-        type:Date
-    },
-    updated_at:{
-        type:Date
+        type:Number,
+        required: true
     }
 });
 
-const posts = model<Post>('Post', postSchema);
-export default posts;
+export const Posts = model<Post>('Post', postSchema);

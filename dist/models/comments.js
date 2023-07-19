@@ -23,32 +23,51 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.follows = void 0;
+exports.comments = void 0;
 const mongoose_1 = __importStar(require("mongoose"));
 const Schema = mongoose_1.default.Schema;
 const ObjectId = Schema.Types.ObjectId;
-const follow = new Schema({
-    sender_id: {
+const replySchema = new Schema({
+    user_id: {
         type: ObjectId,
-        ref: 'User'
-    },
-    receiver_id: {
-        type: ObjectId,
-        ref: 'User'
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now,
-    },
-    updatedAt: {
-        type: Date,
-        default: Date.now,
-    },
-    status: {
-        type: String,
-        enum: ['accept', 'reject', 'pending'],
+        ref: 'user',
         required: true
-    }
+    },
+    reply_content: {
+        type: String,
+        required: true
+    },
+    reply_likes: {
+        type: Number
+    },
+    created_at: {
+        type: Date,
+        default: Date.now
+    },
+    updated_at: {
+        type: Date,
+        default: Date.now
+    },
 });
-exports.follows = (0, mongoose_1.model)('Follower', follow);
-//# sourceMappingURL=follow_manage.js.map
+const commentSchema = new Schema({
+    post_id: {
+        type: ObjectId,
+        ref: 'post',
+        required: true
+    },
+    user_id: {
+        type: ObjectId,
+        ref: 'user',
+        required: true
+    },
+    content: {
+        type: String,
+        required: true
+    },
+    comment_likes: {
+        type: Number
+    },
+    replySchema: replySchema,
+});
+exports.comments = (0, mongoose_1.model)('Comment', commentSchema);
+//# sourceMappingURL=comments.js.map
