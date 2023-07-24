@@ -27,11 +27,10 @@ exports.Actions = void 0;
 const mongoose_1 = __importStar(require("mongoose"));
 const Schema = mongoose_1.default.Schema;
 const ObjectId = Schema.Types.ObjectId;
-[];
 const actionSchema = new Schema({
     action_type: { type: String, required: true },
     user_id: { type: Number, ref: 'User', required: true },
-    post_id: { type: Number, ref: 'Posts', required: true }
+    post_id: { type: Number, ref: 'Post', required: true }
 });
 exports.Actions = (0, mongoose_1.model)('Action', actionSchema);
 //# sourceMappingURL=action.js.map

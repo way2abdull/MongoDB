@@ -30,7 +30,7 @@ const ObjectId = Schema.Types.ObjectId;
 const replySchema = new Schema({
     user_id: {
         type: ObjectId,
-        ref: 'user',
+        ref: 'User',
         required: true
     },
     reply_content: {
@@ -39,25 +39,17 @@ const replySchema = new Schema({
     },
     reply_likes: {
         type: Number
-    },
-    created_at: {
-        type: Date,
-        default: Date.now
-    },
-    updated_at: {
-        type: Date,
-        default: Date.now
-    },
+    }
 });
 const commentSchema = new Schema({
     post_id: {
         type: ObjectId,
-        ref: 'post',
+        ref: 'Post',
         required: true
     },
     user_id: {
         type: ObjectId,
-        ref: 'user',
+        ref: 'User',
         required: true
     },
     content: {
@@ -67,7 +59,7 @@ const commentSchema = new Schema({
     comment_likes: {
         type: Number
     },
-    replySchema: replySchema,
+    replies: [replySchema],
 });
 exports.comments = (0, mongoose_1.model)('Comment', commentSchema);
 //# sourceMappingURL=comments.js.map

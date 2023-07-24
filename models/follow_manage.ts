@@ -2,7 +2,7 @@ import mongoose, { model, Types } from 'mongoose';
 const Schema = mongoose.Schema;
 const ObjectId = Schema.Types.ObjectId;
 
-interface Follower {
+export interface Follower {
     sender_id: Number;
     receiver_id: Number;
     status: 'accept' | 'reject' | 'pending';

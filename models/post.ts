@@ -1,7 +1,7 @@
 // import mongoose from "mongoose";
 import mongoose, { model } from 'mongoose';
 
-interface Post {
+export interface Post {
     post_id: number;
     user_id: number;
     caption: Text;

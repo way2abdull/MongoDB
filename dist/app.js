@@ -28,13 +28,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const dotenv = __importStar(require("dotenv"));
+const routes_1 = require("./routes/routes");
 const db_connection_1 = require("./db/db_connection");
 const app = (0, express_1.default)();
 dotenv.config();
 const port = process.env.PORT;
 (0, db_connection_1.connectToDatabase)();
 app.use(express_1.default.json());
+app.use('/', routes_1.router);
 app.listen(port, () => {
-    console.log(`listning at http://locahost:${port}`);
+    console.log(`listning at http://localhost:${port}`);
 });
 //# sourceMappingURL=app.js.map

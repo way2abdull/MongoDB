@@ -27,30 +27,26 @@ exports.Posts = void 0;
 // import mongoose from "mongoose";
 const mongoose_1 = __importStar(require("mongoose"));
 const postSchema = new mongoose_1.default.Schema({
-    post_id: {
-        type: Number
-    },
     user_id: {
         type: mongoose_1.default.Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        required: true
     },
     caption: {
-        type: String
+        type: String,
+        required: true
     },
     media_url: {
-        type: String
+        type: String,
+        required: true
     },
     likes_count: {
-        type: Number
+        type: Number,
+        required: true
     },
     comment_count: {
-        type: Number
-    },
-    created_at: {
-        type: Date
-    },
-    updated_at: {
-        type: Date
+        type: Number,
+        required: true
     }
 });
 exports.Posts = (0, mongoose_1.model)('Post', postSchema);

@@ -3,10 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.sessions = void 0;
 const mongoose_1 = require("mongoose");
 const SessionSchema = new mongoose_1.Schema({
-    _id: {
-        type: Number,
-        required: true
-    },
     user_id: {
         type: Number,
         ref: 'User',
@@ -20,22 +16,10 @@ const SessionSchema = new mongoose_1.Schema({
         type: String,
         required: true
     },
-    device_token: {
-        type: String,
+    status: {
+        type: Boolean,
         required: true
-    },
-    session_token: {
-        type: Number,
-        required: true
-    },
-    createdAt: {
-        type: Date,
-        required: true
-    },
-    updatedAt: {
-        type: Date,
-        required: true
-    },
+    }
 });
 exports.sessions = (0, mongoose_1.model)('Session', SessionSchema);
 //# sourceMappingURL=session.js.map

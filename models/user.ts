@@ -13,15 +13,15 @@ interface User extends Document {
     password: string;
     bio: string;
     profile_pic: string;
-    follower_count: Types.ObjectId[];
-    following_count: Types.ObjectId[];
-    post_count: Types.ObjectId[];
+    follower_count: number;
+    following_count: number;
+    post_count: number;
 }
 
 const UserSchema = new Schema<User>({
-    _id:{
-        type:Number
-    },
+    // _id:{
+    //     type:Number
+    // },
     username: {
         type: String,
         required: true,
@@ -53,15 +53,15 @@ const UserSchema = new Schema<User>({
         required: false,
     },
     follower_count: [{
-        type: ObjectId,
-        // ref: 'User'
+        type: Number,
+        ref: 'Follower'
     }],
     following_count: [{
-        type: ObjectId,
-        ref: 'follower'
+        type: Number,
+        ref: 'Follower'
     }],
     post_count: [{
-        type: ObjectId,
+        type: Number,
         ref: 'Post'
     }]
 });

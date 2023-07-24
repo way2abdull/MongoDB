@@ -30,19 +30,13 @@ const ObjectId = Schema.Types.ObjectId;
 const follow = new Schema({
     sender_id: {
         type: ObjectId,
-        ref: 'User'
+        ref: 'User',
+        required: true
     },
     receiver_id: {
         type: ObjectId,
-        ref: 'User'
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now,
-    },
-    updatedAt: {
-        type: Date,
-        default: Date.now,
+        ref: 'User',
+        required: true
     },
     status: {
         type: String,

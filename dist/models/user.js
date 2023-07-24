@@ -9,9 +9,9 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const Schema = mongoose_1.default.Schema;
 const ObjectId = Schema.Types.ObjectId;
 const UserSchema = new Schema({
-    _id: {
-        type: Number
-    },
+    // _id:{
+    //     type:Number
+    // },
     username: {
         type: String,
         required: true,
@@ -43,15 +43,15 @@ const UserSchema = new Schema({
         required: false,
     },
     follower_count: [{
-            type: ObjectId,
-            ref: 'User'
+            type: Number,
+            ref: 'Follower'
         }],
     following_count: [{
-            type: ObjectId,
-            ref: 'User'
+            type: Number,
+            ref: 'Follower'
         }],
     post_count: [{
-            type: ObjectId,
+            type: Number,
             ref: 'Post'
         }]
 });

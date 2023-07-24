@@ -27,15 +27,17 @@ exports.likes = void 0;
 const mongoose_1 = __importStar(require("mongoose"));
 const Schema = mongoose_1.default.Schema;
 const ObjectId = Schema.Types.ObjectId;
-[];
-const like = new mongoose_1.default.Schema({
+;
+const like = new Schema({
     post_id: {
-        type: mongoose_1.default.Schema.Types.ObjectId,
-        ref: 'Posts'
+        type: ObjectId,
+        ref: 'Post',
+        required: true
     },
     user_id: {
-        type: mongoose_1.default.Schema.Types.ObjectId,
-        ref: 'Users'
+        type: ObjectId,
+        ref: 'User',
+        required: true
     },
 });
 exports.likes = (0, mongoose_1.model)('Like', like);
