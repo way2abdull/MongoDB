@@ -35,25 +35,44 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserSignup = void 0;
+exports.userSignUp = void 0;
 const user_1 = require("../models/user");
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const dotenv = __importStar(require("dotenv"));
+const bcrypt_1 = __importDefault(require("bcrypt"));
 dotenv.config();
 const SECRET_KEY = process.env.SECRET_KEY;
-// const Userrouter = express.Router();
-const UserSignup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const userSignUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const details = req.body;
     try {
-        const user = new user_1.Users(req.body);
-        yield user.save();
-        const token = jsonwebtoken_1.default.sign({ id: user.username }, SECRET_KEY, { expiresIn: '360' });
-        console.log("Token:", token);
-        res.status(200).json({ status: "SignUp Success", token });
+        // await Validate.validateUser.validateAsync(details);
+        const user = yield user_1.Users.find({ username: details.username });
+        console.log(user);
+        if (!user.length) {
+            const salt = yield bcrypt_1.default.genSalt(10);
+            const hashpassword = yield bcrypt_1.default.hash(details.password, salt);
+            // console.log(hashpassword);
+            const user_details = new user_1.Users({
+                username: details.username,
+                first_name: details.first_name,
+                last_name: details.last_name,
+                email: details.email,
+                password: hashpassword,
+                bio: details.bio,
+                follower_count: details.follower_count,
+                following_count: details.follower_count,
+                post_count: details.post_count,
+            });
+            const Details = yield user_details.save();
+            res.status(201).json({ message: "User SignUp Success" });
+            console.log(Details);
+        }
+        else {
+            res.status(404).json({ message: "User already exist" });
+        }
     }
-    catch (error) {
-        console.error(error);
-        res.status(500).send(error);
+    catch (err) {
+        res.status(500).json({ message: "Server Error" });
     }
 });
-exports.UserSignup = UserSignup;
+exports.userSignUp = userSignUp;
 //# sourceMappingURL=signupController.js.map

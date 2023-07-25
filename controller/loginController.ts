@@ -16,34 +16,36 @@ const user_login = async (req:Request, res:Response, next:()=>void) => {
     }
     try {
       const { username, email, password } = req.body;
-      let isAvailable = await Users.findOne({ username,email,password });
+      let user = await Users.findOne({email});
   
-      if (!isAvailable) {
+      if (!user) {
         return res.status(404).json({ status: "User not found" });
       }
       
-      isAvailable = {...JSON.parse(JSON.stringify(isAvailable))}
-      const token = jwt.sign({ user : req.body}, SECRET_KEY);
+      user = {...JSON.parse(JSON.stringify(user))}
+      const token = jwt.sign({ _id:user?._id}, SECRET_KEY);
       console.log(token);
+      // const decode = jwt.verify(token, SECRET_KEY);
+      // console.log(decode);
       res.status(200).json({ status: "Login Success", token });
 
 
       //Session creation if not exist
       let data=await sessionModel.find({
-        userId:isAvailable?._id,
+        userId:user?._id,
         isActive:true,
       })
       if(!(data.length>0))
       {
         sessionModel.create(
           {
-            userId:isAvailable?._id,
+            userId:user?._id,
             isActive:true,
             loginAt:new Date()
           }
         )
       }
-      res.send(req.headers.authorization)
+      res.send(token)
     } catch (error) {
       console.error(error);
       res.status(500).send(error);

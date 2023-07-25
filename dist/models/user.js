@@ -42,18 +42,18 @@ const UserSchema = new Schema({
         type: String,
         required: false,
     },
-    follower_count: [{
-            type: Number,
-            ref: 'Follower'
-        }],
-    following_count: [{
-            type: Number,
-            ref: 'Follower'
-        }],
-    post_count: [{
-            type: Number,
-            ref: 'Post'
-        }]
+    follower_count: {
+        type: Number,
+        ref: 'Follower'
+    },
+    following_count: {
+        type: Number,
+        ref: 'Follower'
+    },
+    post_count: {
+        type: Number,
+        ref: 'Post'
+    }
 });
 exports.Users = mongoose_1.default.model('User', UserSchema);
 //# sourceMappingURL=user.js.map

@@ -1,13 +1,10 @@
-// import mongoose from "mongoose";
 import mongoose, { model } from 'mongoose';
 
 export interface Post {
-    post_id: number;
     user_id: number;
     caption: Text;
     media_url: string;
-    createdAt: Date;
-    updatedAt: Date;
+    
 }
 
 const postSchema = new mongoose.Schema({
@@ -25,15 +22,19 @@ const postSchema = new mongoose.Schema({
         type:String,
         required: true
     },
-    
-    likes_count:{
-        type:Number,
-        required: true
-    },
-    comment_count:{
-        type:Number,
-        required: true
+    hashtag:{
+        type: String,
+        required: false
     }
+    
+    // likes_count:{
+    //     type:Number,
+    //     required: true
+    // },
+    // comment_count:{
+    //     type:Number,
+    //     required: true
+    // }
 });
 
 export const Posts = model<Post>('Post', postSchema);

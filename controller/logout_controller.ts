@@ -6,24 +6,26 @@ dotenv.config();
 
 export const user_logout=async (req:Request,res:Response)=>{
     //secretKey
-    let SECRET_KEY=""+process.env.SECRET_KEY
+    let SECRET_KEY=process.env.SECRET_KEY
     //JWT Token
-    let token=""+req.headers.authorization
+    let token=req.headers.authorization
     let decode:any;
       try{
           decode= jwt.verify(token,SECRET_KEY)
+          console.log(decode)
+
       }catch(err)
       {
           res.send("token Expire or not valid")
       }
       try{
           let data=await sessionModel.updateOne({
-              userId: decode._id,
+              userId: decode?._id,
               isActive:true,
           },{
             $set:{isActive:false},
         })
-        console.log("....................")
+        console.log(data,decode?._id)
             res.send("logout successfully")
         }catch(err){
             res.send("error")

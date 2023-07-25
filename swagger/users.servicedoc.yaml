@@ -1,0 +1,135 @@
+tags:
+    name: User Signup
+components:
+  schemas:
+      user:
+        type: object
+        properties:
+          username:
+            type: string
+            example: abdul123
+          first_name:
+            type: string
+            example: abdul
+          last_name:
+            type: string
+            example: rahman    
+          email:
+            type: string
+            example: abdul@gmail.com
+          password:
+            type: string
+          bio:
+            type: string
+            example: This is my bio  
+          profile_pic:
+            type: string
+            example: image.jpg
+          follower_count:
+            type: number
+          following_count:
+            type: number
+          post_count:
+            type: number        
+        required:
+            username
+            email
+
+paths:
+  /signup:
+    post:
+      summary: This creates new user in database.
+      tags: [User Signup]
+      description: This route registers users with their details.
+      requestBody:
+        required: true
+        content:
+          application/json:
+           schema:
+            $ref: '#components/schemas/user'
+      responses:
+        '201':
+          description: Created Success
+        '406':
+          description: Value not accepted
+        '500':
+          description: Internal Server Error
+
+
+  /login:
+    post:
+      summary: This creates new user in database.
+      tags: [User login]
+      description: This route will SignIn users with their correct credentials.
+      requestBody:
+        required: true
+        content:
+          application/json:
+           schema:
+             type: object
+             properties:
+               username:
+                 type: string
+               email:
+                 type: string
+               password:
+                 type: string   
+      responses:
+        '201':
+          description: Created Success
+        '406':
+          description: Value not accepted
+        '500':
+          description: Internal Server Error
+
+  /follower:
+    get:
+      summary: This is used to manage follower and following
+      tags: [Follower/Following]
+      descrition: This is used to manage follower and following
+      requestBody:
+        required: true
+        content:
+          application/json:
+           schema:
+             type: object
+             properties:
+               recieverName:
+                 type: string
+               senderName:
+                 type: string 
+      responses:
+        '201':
+          description: Created Success
+        '406':
+          description: Value not accepted
+        '500':
+          description: Internal Server Error
+
+  /post:
+    post:
+      summary: This is used to post media on feed
+      tags: [Posts]
+      descrition: This is used to upload posts on feed
+      requestBody:
+        required: true
+        content:
+          application/json:
+           schema:
+             type: object
+             properties:
+               userId:
+                 type: object
+               caption: 
+                 type: string
+               media_url:
+                 type: string
+               hashTags:
+                 type: string     
+      responses:
+        '201':
+          description: Created Success
+        '406':
+          description: Value not accepted
+        '500':
+          description: Internal Server Error                              

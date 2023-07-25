@@ -1,5 +1,4 @@
 import * as dotenv from 'dotenv';
-import express from 'express';
 import jwt from 'jsonwebtoken';
 dotenv.config();
 
@@ -33,4 +32,4 @@ const auth = (req, res, next) => {
   };
 
 
-export default auth;
+export {auth};

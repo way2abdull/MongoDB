@@ -27,9 +27,9 @@ exports.post = void 0;
 const mongoose_1 = __importStar(require("mongoose"));
 const postSchema = new mongoose_1.default.Schema({
     usrId: { type: mongoose_1.Schema.Types.ObjectId, ref: 'User' },
-    postId: String,
     caption: String,
-    hashTags: Object
+    media_url: String,
+    hashTags: String
 });
 exports.post = mongoose_1.default.model('userPost', postSchema);
 //# sourceMappingURL=posts.js.map

@@ -50,27 +50,29 @@ const user_login = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
     }
     try {
         const { username, email, password } = req.body;
-        let isAvailable = yield user_1.Users.findOne({ username, email, password });
-        if (!isAvailable) {
+        let user = yield user_1.Users.findOne({ email });
+        if (!user) {
             return res.status(404).json({ status: "User not found" });
         }
-        isAvailable = Object.assign({}, JSON.parse(JSON.stringify(isAvailable)));
-        const token = jsonwebtoken_1.default.sign({ user: req.body }, SECRET_KEY);
+        user = Object.assign({}, JSON.parse(JSON.stringify(user)));
+        const token = jsonwebtoken_1.default.sign({ _id: user === null || user === void 0 ? void 0 : user._id }, SECRET_KEY);
         console.log(token);
+        // const decode = jwt.verify(token, SECRET_KEY);
+        // console.log(decode);
         res.status(200).json({ status: "Login Success", token });
         //Session creation if not exist
         let data = yield sessions_1.sessionModel.find({
-            userId: isAvailable === null || isAvailable === void 0 ? void 0 : isAvailable._id,
+            userId: user === null || user === void 0 ? void 0 : user._id,
             isActive: true,
         });
         if (!(data.length > 0)) {
             sessions_1.sessionModel.create({
-                userId: isAvailable === null || isAvailable === void 0 ? void 0 : isAvailable._id,
+                userId: user === null || user === void 0 ? void 0 : user._id,
                 isActive: true,
                 loginAt: new Date()
             });
         }
-        res.send(req.headers.authorization);
+        res.send(token);
     }
     catch (error) {
         console.error(error);

@@ -1,3 +1,4 @@
+import { any } from "joi";
 import { Users } from "../models";
 
 const checkusername = async (req: any, res: any, next:any) => {
@@ -10,6 +11,7 @@ const checkusername = async (req: any, res: any, next:any) => {
         const existingUser = await Users.findOne({ username: recieverName });
         if (existingUser) {
             return res.status(200).json({ exists: true });
+        
         } else {
             return res.status(200).json({ exists: false });
         }

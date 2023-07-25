@@ -24,7 +24,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Posts = void 0;
-// import mongoose from "mongoose";
 const mongoose_1 = __importStar(require("mongoose"));
 const postSchema = new mongoose_1.default.Schema({
     user_id: {
@@ -40,14 +39,18 @@ const postSchema = new mongoose_1.default.Schema({
         type: String,
         required: true
     },
-    likes_count: {
-        type: Number,
-        required: true
-    },
-    comment_count: {
-        type: Number,
-        required: true
+    hashtag: {
+        type: String,
+        required: false
     }
+    // likes_count:{
+    //     type:Number,
+    //     required: true
+    // },
+    // comment_count:{
+    //     type:Number,
+    //     required: true
+    // }
 });
 exports.Posts = (0, mongoose_1.model)('Post', postSchema);
 //# sourceMappingURL=post.js.map

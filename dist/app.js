@@ -30,12 +30,33 @@ const express_1 = __importDefault(require("express"));
 const dotenv = __importStar(require("dotenv"));
 const routes_1 = require("./routes/routes");
 const db_connection_1 = require("./db/db_connection");
+const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
+const swagger_jsdoc_1 = __importDefault(require("swagger-jsdoc"));
+const options = {
+    definition: {
+        openapi: '3.0.0',
+        info: {
+            title: "Instagram",
+            version: "1.0.0"
+        },
+        schemas: ['http', 'https'],
+        servers: [
+            {
+                url: "http://localhost:3000/"
+            }
+        ]
+    },
+    // apis: ['./routes/routes.ts'],
+    apis: ['./swagger/users.servicedoc.yaml'],
+};
 const app = (0, express_1.default)();
 dotenv.config();
 const port = process.env.PORT;
 (0, db_connection_1.connectToDatabase)();
 app.use(express_1.default.json());
 app.use('/', routes_1.router);
+const swaggerDocument = (0, swagger_jsdoc_1.default)(options);
+app.use('/docs', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swaggerDocument));
 app.listen(port, () => {
     console.log(`listning at http://localhost:${port}`);
 });

@@ -16,9 +16,9 @@ const postController = (req, res) => {
         let decoded = jsonwebtoken_1.default.verify(token, secretKey);
         //Creating data that we want to insert into database
         let postData = {
-            usrId: decoded._id,
-            postId: req.body.postId,
+            userId: decoded._id,
             caption: req.body.caption,
+            media_url: req.body.media_url,
             hashTags: req.body.hashtag
         };
         posts_1.post.create(postData)

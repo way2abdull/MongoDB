@@ -13,9 +13,9 @@ export const postController=(req:Request,res:Response)=>{
       let decoded:any = jwt.verify(token, secretKey);
       //Creating data that we want to insert into database
       let postData={
-        usrId:decoded._id,
-        postId:req.body.postId,
+        userId:decoded._id,
         caption:req.body.caption,
+        media_url: req.body.media_url,
         hashTags:req.body.hashtag
       }
       post.create(postData)

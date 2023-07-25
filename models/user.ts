@@ -52,18 +52,18 @@ const UserSchema = new Schema<User>({
         type: String,
         required: false,
     },
-    follower_count: [{
+    follower_count: {
         type: Number,
         ref: 'Follower'
-    }],
-    following_count: [{
+    },
+    following_count: {
         type: Number,
         ref: 'Follower'
-    }],
-    post_count: [{
+    },
+    post_count: {
         type: Number,
         ref: 'Post'
-    }]
+    }
 });
 
 export const Users = mongoose.model('User', UserSchema);
