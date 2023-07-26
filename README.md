@@ -1,2 +1,2 @@
 # MongoDB
-Schema design of Instagram
+Redis and Swagger implementation
