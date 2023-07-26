@@ -39,6 +39,7 @@ const sessionCheck = (req, res, next) => __awaiter(void 0, void 0, void 0, funct
     catch (err) {
         res.send("error");
     }
+    next();
 });
 exports.sessionCheck = sessionCheck;
 //# sourceMappingURL=session_mid.js.map

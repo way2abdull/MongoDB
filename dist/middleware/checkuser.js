@@ -26,6 +26,7 @@ const checkusername = (req, res, next) => __awaiter(void 0, void 0, void 0, func
         }
     }
     catch (err) {
+        next();
         return res.status(500).json({ error: 'cannot find username' });
     }
 });

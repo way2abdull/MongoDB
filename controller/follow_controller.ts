@@ -25,11 +25,11 @@ const update_follower = async (req: any, res: any) => {
 
         const filter = { username: recieverName };
         const update = { $inc: { follower_count: 1 } };
-        const result = await Users.updateOne(filter, update);
+        await Users.updateOne(filter, update);
 
         const filter1 = { username: senderName };
         const update1 = { $inc: { following_count: 1 } };
-        const result1 = await Users.updateOne(filter1, update1);
+        await Users.updateOne(filter1, update1);
 
         res.status(200).json({ status: "updated successfully" });
 

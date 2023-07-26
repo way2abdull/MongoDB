@@ -10,13 +10,12 @@ const SECRET_KEY= process.env.SECRET_KEY;
 const userSignUp = async (req: any, res: any) => {
     const details = req.body;
     try {
-        // await Validate.validateUser.validateAsync(details);
         const user = await Users.find({ username: details.username });
         console.log(user);
         if (!user.length){
             const salt = await bcrypt.genSalt(10);
             const hashpassword = await bcrypt.hash(details.password, salt);
-            // console.log(hashpassword);
+
             const user_details = new Users({
                 username: details.username,
                 first_name: details.first_name,
@@ -30,7 +29,7 @@ const userSignUp = async (req: any, res: any) => {
                 
             });
             const Details = await user_details.save();
-            res.status(201).json({ message: "User SignUp Success" });
+            res.status(201).json({ message: "User SignUp Success, go to Login" });
             console.log(Details);
         }
         else {

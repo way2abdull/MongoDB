@@ -26,29 +26,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.auth = void 0;
 const dotenv = __importStar(require("dotenv"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 dotenv.config();
 const SECRET_KEY = process.env.SECRET_KEY;
 const auth = (req, res, next) => {
-    const authheader = req.headers.authorization;
-    console.log(authheader);
-    if (authheader) {
-        // const token = authheader.split(' ')[1];
+    const token = req.headers.authorization;
+    console.log(token);
+    if (token) {
+        // const token = token.split(' ')[1];
         // console.log(token);
-        const decode = jsonwebtoken_1.default.verify(authheader, SECRET_KEY);
-        res.json({
-            login: true,
-            data: decode,
-        });
+        const decode = jsonwebtoken_1.default.verify(token, SECRET_KEY);
+        req.user = decode;
     }
     else {
-        res.json({
-            login: false,
-            // req.state.data,
-            data: "error"
-        });
+        res.status(401).json({ message: "Unauthorized, please provide token" });
     }
+    next();
 };
-exports.default = auth;
+exports.auth = auth;
 //# sourceMappingURL=auth.js.map

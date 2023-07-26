@@ -44,13 +44,11 @@ const SECRET_KEY = process.env.SECRET_KEY;
 const userSignUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const details = req.body;
     try {
-        // await Validate.validateUser.validateAsync(details);
         const user = yield user_1.Users.find({ username: details.username });
         console.log(user);
         if (!user.length) {
             const salt = yield bcrypt_1.default.genSalt(10);
             const hashpassword = yield bcrypt_1.default.hash(details.password, salt);
-            // console.log(hashpassword);
             const user_details = new user_1.Users({
                 username: details.username,
                 first_name: details.first_name,
@@ -63,7 +61,7 @@ const userSignUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                 post_count: details.post_count,
             });
             const Details = yield user_details.save();
-            res.status(201).json({ message: "User SignUp Success" });
+            res.status(201).json({ message: "User SignUp Success, go to Login" });
             console.log(Details);
         }
         else {

@@ -1,47 +1,46 @@
-"use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const dotenv = __importStar(require("dotenv"));
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-dotenv.config();
-const SECRET_KEY = process.env.SECRET_KEY;
-const upadteSession = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const authheader = req.headers.authorization;
-    const decode = jsonwebtoken_1.default.verify(authheader, SECRET_KEY);
-    const { user_id, device_id, device_type, status } = req.body;
-});
+// import { sessionModel } from "../models";
+// import { Verify} from '../middleware/verify_user'
+// import { Users } from "../models";
+// import { Redis } from '../middleware/redis_session';
+// import { date } from "joi";
+// export class Sessions{
+//     static async maintain_session(req: any, res: any, token){
+//         try{
+//             const check_user = await Verify.verify_token(token);
+//             const isUser = await Users.find({email: check_user.email});
+//             if(isUser){
+//                 const user = isUser[0]._id;
+//                 const isSession = await sessionModel.find({user_id: user})
+//                 console.log(isSession);
+//                 if(!isSession.length){
+//                     const session_details = new sessionModel({
+//                         user_id: user,
+//                         isActive: true,
+//                         loginAt: date
+//                     });
+//                     const session = await session_details.save();
+//                     console.log("Session stored successfully");
+//                     console.log(session);
+//                 }
+//                 else if(isSession.length){
+//                     if(!isSession[0].isActive){
+//                         await sessionModel.findOneAndUpdate({user_id: user}, {status: !isSession[0].isActive});
+//                         console.log("Session Activate");
+//                     }
+//                 }
+//                 // console.log("One session of this user is already activ");
+//                 // res.status(201).json({message: "Session stored successfully"});
+//                 await Redis.maintain_session_redis(token);
+//             }
+//             else{
+//                 // res.status(404).json({message: "User Not Found"});
+//                 console.log("User not found");
+//             }
+//         }
+//         catch(err){
+//             // res.status(500).json({message: "Server Error", err});
+//             console.log("Server Error")
+//         }
+//     }
+// }
 //# sourceMappingURL=session_controller.js.map

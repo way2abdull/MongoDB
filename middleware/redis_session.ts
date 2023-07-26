@@ -1,23 +1,26 @@
 import redis from "redis";
 import { createClient } from "redis";
 import {Users} from "../models/user";
-import { auth } from "./auth";
-import { Verify } from "./user_auth";
+import { date } from "joi";
+import { Verify } from "./verify_user";
 
 const client = createClient();
+client.connect();
+client.on('error', err => console.log('Redis client error', err));
 
 export class Redis{
-    static async maintain_session_redis(user,device){
-        await client.connect();
-        client.on('error', err => console.log('Redis client error', err));
+    static async maintain_session_redis(token,client){
         try{
-            if(user){
-                await client.SET(user.username, JSON.stringify({
-                    'user_id': user._id,
-                    'device_id': device,
-                    'status': true
+            const user = await Verify.verify_token(token);
+            const isUser = await Users.findOne({_id: user._id});
+            console.log(isUser);
+            if(isUser){
+                await client.SET(isUser.username, JSON.stringify({
+                    user_id: isUser._id,
+                    isActive: true,
+                    loginAt:date
                 }));
-                const session = await client.get(user.username);
+                const session = await client.get(isUser.username);
                 console.log(session);
             }
             else{
@@ -28,17 +31,17 @@ export class Redis{
             console.log(err);
         }
     }
-    static async logout_session_redis(user){
+    static async logout_session_redis(isUser:any){
         try{
-            await client.SET(user.username, JSON.stringify({
-                user_id: user.id,
-                status: false
+            await client.SET(isUser.username, JSON.stringify({
+                user_id: isUser._id,
+                isActive: false
             }));
-            const session = await client.get(user.username);
+            const session = await client.get(isUser.username);
             console.log(session);
         }
         catch(err){
             console.log(err);
         }
     }
-}
+};

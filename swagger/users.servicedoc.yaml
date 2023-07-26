@@ -83,7 +83,7 @@ paths:
           description: Internal Server Error
 
   /follower:
-    get:
+    post:
       summary: This is used to manage follower and following
       tags: [Follower/Following]
       descrition: This is used to manage follower and following
